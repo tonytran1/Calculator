@@ -6,6 +6,7 @@ let currentValue;
 
 $('.button').on('click', function(event) {
   event.preventDefault();
+  this.blur();
   let type = $(this).data('type');
   let value = this.innerHTML;
   events[type](value);
@@ -95,7 +96,7 @@ function clearAll() {
   calculator.set(0);
   operator = 'none';
   $('#input').html('0');
-  $('#calculation').html('');
+  $('#calculation').html('&nbsp;');
 }
 
 const math = {
