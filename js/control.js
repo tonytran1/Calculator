@@ -1,5 +1,6 @@
 let calculator = new Calculator();
 let operator = 'none';
+let startNewNumber = false;
 let currentValue;
 
 $('.button').on('click', function(event) {
@@ -22,33 +23,46 @@ const math = {
   '-' : (value) => calculator.subtract(value),
   '/' : (value) => calculator.divide(value),
   '*' : (value) => calculator.multiply(value),
+  '^' : (value) => calculator.power(value),
   'none' : (value) => value
 };
 
 const clearOperations = {
   'C' : () => clearAll(),
-  'CE' : () => $('#input').html('0'),
+  'CE' : () => { $('#input').html('0'); $('#calculation').html(''); },
   'DEL' : () => removeLastDigit()
 };
 
 function setOperator(value) {
   let number = parseFloat($('#input').html());
+  startNewNumber = true;
   operator = value;
   currentValue = number;
   calculator.set(number);
+  $('#input').html('0');
+  $('#calculation').html(number + operator);
 }
 
 function appendToNumber(value) {
   let number = $('#input').html();
-  number = (parseFloat(number) === 0 || operator !== 'none') ? value : number + value;
+  number = (parseFloat(number) === 0 || startNewNumber) ? value : number + value;
   currentValue = parseFloat(number);
   $('#input').html(number);
+  if (startNewNumber) { startNewNumber = false; }
+  if (operator !== 'none') {
+    let calculation = $('#calculation').html() + value;
+    $('#calculation').html(calculation);
+  }
 }
 
 function signChange() {
   let number = $('#input').html();
   number = number[0].includes('-') ? number.slice(1) : '-' + number;
   $('#input').html(number);
+  if (operator !== 'none') {
+    let calculation = $('#calculation').html().split(operator);
+    $('#calculation').html(calculation[0] + operator + `(${ number })`);
+  }
 }
 
 function solve() {

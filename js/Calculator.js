@@ -22,6 +22,10 @@ class Calculator {
     this.currentValue /= value;
     return this.currentValue;
   }
+  power(value) {
+    this.currentValue = Math.pow(this.currentValue, value);
+    return this.currentValue;
+  }
   clear() {
     this.currentValue = 0;
     return this.currentValue;

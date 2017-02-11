@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Simple Calculator</title>
     <link rel="stylesheet" href="stylesheets/style.css" type="text/css">
   </head>
   <body>
     <div id="calculator">
-      <div class="row">
+      <div class="row input-row">
+        <div id="calculation"></div>
         <div id="input">0</div>
       </div>
       <div class="row">
-        <button class="button" data-type='clear'>C</button>
         <button class="button" data-type='clear'>CE</button>
         <button class="button" data-type='clear'>DEL</button>
+        <button class="button" data-type='operator'>^</button>
         <button class="button" data-type='operator'>/</button>
       </div>
       <div class="row">
