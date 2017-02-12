@@ -22,6 +22,26 @@ const events = {
   'equals' : () => solve()
 }
 
+const math = {
+  '+' : (value) => calculator.add(value),
+  '-' : (value) => calculator.subtract(value),
+  '/' : (value) => calculator.divide(value),
+  '*' : (value) => calculator.multiply(value),
+  '^' : (value) => calculator.power(value),
+  'none' : (value) => value
+};
+
+const trig = {
+  'sin' : (value) => calculator.sin(value),
+  'cos' : (value) => calculator.cos(value),
+  'tan' : (value) => calculator.tan(value)
+}
+
+const clearOperations = {
+  'C' : () => clearAll(),
+  'DEL' : () => removeLastDigit()
+};
+
 function unitChange() {
   unit = unit === 'deg' ? 'rad' : 'deg';
   $('button[data-type="unit-change"]').html(unit);
@@ -90,6 +110,12 @@ function removeLastDigit() {
   let number = $('#input').html();
   number = number.length === 1 ? '0' : number.slice(0, -1);
   $('#input').html(number);
+  let calculation = $('#calculation').html().split(operator);
+  if (operator !== 'none' && number !== '0') {
+    $('#calculation').html(calculation[0] + operator + number);
+  } else if (operator !== 'none') {
+    $('#calculation').html(calculation[0] + operator);
+  }
 }
 
 function clearAll() {
@@ -98,23 +124,3 @@ function clearAll() {
   $('#input').html('0');
   $('#calculation').html('&nbsp;');
 }
-
-const math = {
-  '+' : (value) => calculator.add(value),
-  '-' : (value) => calculator.subtract(value),
-  '/' : (value) => calculator.divide(value),
-  '*' : (value) => calculator.multiply(value),
-  '^' : (value) => calculator.power(value),
-  'none' : (value) => value
-};
-
-const trig = {
-  'sin' : (value) => calculator.sin(value),
-  'cos' : (value) => calculator.cos(value),
-  'tan' : (value) => calculator.tan(value)
-}
-
-const clearOperations = {
-  'C' : () => clearAll(),
-  'DEL' : () => removeLastDigit()
-};
